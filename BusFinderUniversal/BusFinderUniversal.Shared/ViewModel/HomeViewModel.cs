@@ -494,7 +494,7 @@ namespace BusFinderUniversal.ViewModel
 						JsonArray a = o["COL"].GetArray();
 
 						string code = a[1].GetObject()["DATA"].GetString();
-						string name = a[11].GetObject()["DATA"].GetString();
+						string name = a[7].GetObject()["DATA"].GetString();
 						try
 						{
 							double lat = Double.Parse(a[9].GetObject()["DATA"].GetString());
@@ -567,7 +567,7 @@ namespace BusFinderUniversal.ViewModel
 						BusStop bs = new BusStop(code, name, "", new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
 						RouteReturnStations.Add(bs);
 
-						BusNode bn = new BusNode(code, null, bs, null);
+						BusNode bn = new BusNode(busID, null, bs, null);
 						returnNode.Add(bn);
 
 						if (!obs.Any(_tmp => _tmp.Code == code))

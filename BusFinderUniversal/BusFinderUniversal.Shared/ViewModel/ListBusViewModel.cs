@@ -421,5 +421,12 @@ namespace BusFinderUniversal.ViewModel
 			return null;
 		}
 
+
+		internal BusStop FindBusStopByCode(string p)
+		{
+			var matches = Buses.Stops.Where((bus) => bus.Code.Equals(p));
+			if (matches.Count() >= 1) return matches.First();
+			return null;
+		}
 	}
 }
