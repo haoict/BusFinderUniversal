@@ -11,6 +11,9 @@ using Windows.Services.Maps;
 using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
 using Windows.Security.Cryptography.Core;
+using BusFinderUniversal.Model;
+using BusFinderUniversal.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 
 namespace BusFinderUniversal
 {
@@ -122,6 +125,43 @@ namespace BusFinderUniversal
 			return new Windows.ApplicationModel.Resources.ResourceLoader().GetString(name);
 		}
 
+		public static List<Geopoint> textToGeoList(string text)
+		{
+
+			char[] delimiterChars = { ' ' };
+			string[] words = text.Split(delimiterChars);
+			List<Geopoint> geoList = new List<Geopoint>();
+
+			foreach (string word in words)
+			{
+				if (!word.Contains(",")) continue;
+				char[] delimiterChars2 = { ',' };
+				string[] lnglat = word.Split(delimiterChars2);
+				double lng = Double.Parse(lnglat[0]);
+				double lat = Double.Parse(lnglat[1]);
+				geoList.Add(new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
+			}
+
+			return geoList;
+		}
+
+		public static List<BusStop> textToBusStopList(string text)
+		{
+			
+			char[] delimiterChars = { ' ' };
+			string[] words = text.Split(delimiterChars);
+			List<BusStop> bsList = new List<BusStop>();
+			ListBusViewModel currentListInstance = ServiceLocator.Current.GetInstance<ListBusViewModel>();
+
+			foreach (string word in words)
+			{
+				var matches = currentListInstance.Buses.Stops.Where((bus) => bus.Code.Equals(word));
+				if (matches.Count() >= 1) 
+					bsList.Add(matches.First());
+			}
+			if (bsList.Count == 0) return null;
+			return bsList;
+		}
 	}
 
 	public class MessageDialogHelper

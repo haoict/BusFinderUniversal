@@ -1,0 +1,6 @@
+﻿[ResourceMetadata]
+"ResourceId"			"split.language-ru"
+"ResourceDimensions"		"language-ru"
+
+[Files]
+"D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\x86\Debug\split.language-ru.pri"			"resources.pri"

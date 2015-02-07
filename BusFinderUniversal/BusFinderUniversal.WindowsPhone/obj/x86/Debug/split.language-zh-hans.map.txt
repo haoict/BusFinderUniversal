@@ -1,0 +1,6 @@
+﻿[ResourceMetadata]
+"ResourceId"			"split.language-zh-hans"
+"ResourceDimensions"		"language-zh-cn"
+
+[Files]
+"D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\x86\Debug\split.language-zh-hans.pri"			"resources.pri"

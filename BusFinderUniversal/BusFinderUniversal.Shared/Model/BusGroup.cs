@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Text;
 
 namespace BusFinderUniversal.Model
 {
+	[Table("BusGroup")]
 	public class BusGroup : ObservableObject
 	{
 		public BusGroup(string name, ObservableCollection<BusItem> bi, ObservableCollection<BusStop> bs)
@@ -26,6 +28,7 @@ namespace BusFinderUniversal.Model
 		public string _name;
 		public ObservableCollection<BusStop> _stops;
 
+		[PrimaryKey]
 		public string Name
 		{
 			get

@@ -14,6 +14,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using BusFinderUniversal.View;
 using GalaSoft.MvvmLight.Messaging;
+using SQLite;
 
 namespace BusFinderUniversal.ViewModel
 {
@@ -241,6 +242,8 @@ namespace BusFinderUniversal.ViewModel
 			//	await GetHaiphongDataAsync();
 
 			ShowLoadingScreen(false);
+
+			SQLiteAsyncConnection connection = new SQLiteAsyncConnection("Test1");
 		}
 
 		private async Task GetHanoiDataAsync()
@@ -255,10 +258,10 @@ namespace BusFinderUniversal.ViewModel
 			for (int i = 1; i <= MyConstants.NUMBER_OF_BUS; i++)
 			{
 				ProgressBarValue += (double)100 / MyConstants.NUMBER_OF_BUS;
-				List<Geopoint> RouteGoGeo = new List<Geopoint>();
-				List<BusStop> RouteGoStations = new List<BusStop>();
-				List<Geopoint> RouteReturnGeo = new List<Geopoint>();
-				List<BusStop> RouteReturnStations = new List<BusStop>();
+				string RouteGoGeo = "";
+				string RouteGoStations = "";
+				string RouteReturnGeo = "";
+				string RouteReturnStations = "";
 				List<BusNode> goNode = new List<BusNode>();
 				List<BusNode> returnNode = new List<BusNode>();
 
@@ -280,7 +283,7 @@ namespace BusFinderUniversal.ViewModel
 
 					double lng = goGeoObject["Lng"].GetNumber();
 					double lat = goGeoObject["Lat"].GetNumber();
-					RouteGoGeo.Add(new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
+					RouteGoGeo += lng.ToString() + "," + lat.ToString() + " ";
 				}
 
 				JsonArray goStationArray = goObject["Station"].GetArray();
@@ -305,8 +308,8 @@ namespace BusFinderUniversal.ViewModel
 					BusStop bs = new BusStop(code,
 												goStationObject["Name"].GetString(),
 												goStationObject["FleetOver"].GetString(),
-												new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
-					RouteGoStations.Add(bs);
+												lng.ToString() + "," + lat.ToString());
+					RouteGoStations += code + " ";
 
 					BusNode bn = new BusNode(jsonObject["Code"].GetString(), null, bs, null);
 					goNode.Add(bn);
@@ -347,7 +350,8 @@ namespace BusFinderUniversal.ViewModel
 
 					double lng = reGeoObject["Lng"].GetNumber();
 					double lat = reGeoObject["Lat"].GetNumber();
-					RouteReturnGeo.Add(new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
+					RouteReturnGeo += lng.ToString() + "," + lat.ToString() + " ";
+					//RouteReturnGeo.Add(new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
 				}
 
 				JsonArray reStationArray = reObject["Station"].GetArray();
@@ -371,8 +375,8 @@ namespace BusFinderUniversal.ViewModel
 					BusStop bs = new BusStop(code,
 												reStationObject["Name"].GetString(),
 												reStationObject["FleetOver"].GetString(),
-												new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
-					RouteReturnStations.Add(bs);
+												lng.ToString() + "," + lat.ToString());
+					RouteReturnStations += code + " ";
 
 					BusNode bn = new BusNode(jsonObject["Code"].GetString(), null, bs, null);
 					returnNode.Add(bn);
@@ -443,6 +447,218 @@ namespace BusFinderUniversal.ViewModel
 			}
 		}
 
+		private async Task GetHCMDataAsync()
+		{
+			if (Buses != null)
+				if (Buses.Name == "TP Hồ Chí Minh")
+					return;
+
+			ObservableCollection<BusItem> obi = new ObservableCollection<BusItem>();
+			ObservableCollection<BusStop> obs = new ObservableCollection<BusStop>();
+
+			for (int i = 1; i <= MyConstants.NUMBER_OF_BUS_HCM; i++)
+			{
+				ProgressBarValue += (double)100 / MyConstants.NUMBER_OF_BUS_HCM;
+				string RouteGoGeo = "";
+				string RouteGoStations = "";
+				string RouteReturnGeo = "";
+				string RouteReturnStations = "";
+				List<BusNode> goNode = new List<BusNode>();
+				List<BusNode> returnNode = new List<BusNode>();
+
+				Uri dataUri = new Uri("ms-appx:///DataModel/HCM Buses/" + i.ToString() + ".txt");
+				StorageFile file;
+				try
+				{
+					file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
+				}
+				catch (Exception exc)
+				{
+					continue;
+				}
+				
+				string jsonText = await FileIO.ReadTextAsync(file);
+
+				//byte[] cipher = EncryptionHelper.Encrypt(jsonText, MyConstants.ENCRYPT_KEY, MyConstants.ENCRYPT_SALT);
+				//string jsonText_ = EncryptionHelper.Decrypt(cipher, MyConstants.ENCRYPT_KEY, MyConstants.ENCRYPT_SALT);
+
+				JsonObject jsonObject = JsonObject.Parse(jsonText)["dt"].GetObject();
+
+				// Get Go
+				JsonObject goObject = jsonObject["Go"].GetObject();
+				JsonArray goGeoArray = goObject["Geo"].GetArray();
+				foreach (JsonValue value in goGeoArray)
+				{
+					JsonObject goGeoObject = value.GetObject();
+
+					double lng = goGeoObject["Lng"].GetNumber();
+					double lat = goGeoObject["Lat"].GetNumber();
+					RouteGoGeo += lng.ToString() + "," + lat.ToString() + " ";
+				}
+
+				JsonArray goStationArray = goObject["Station"].GetArray();
+				foreach (JsonValue value in goStationArray)
+				{
+					JsonObject goStationObject = value.GetObject();
+
+					double lng = goStationObject["Geo"].GetObject()["Lng"].GetNumber();
+					double lat = goStationObject["Geo"].GetObject()["Lat"].GetNumber();
+
+					string code = "";
+					try
+					{
+						code = goStationObject["ObjectID"].GetNumber().ToString();
+						//code = goStationObject["Code"].GetString();
+					}
+					catch (Exception exc)
+					{
+						string errMsg = exc.Message;
+					}
+
+					BusStop bs = new BusStop(code,
+												goStationObject["Name"].GetString(),
+												goStationObject["FleetOver"].GetString(),
+												lng.ToString() + "," + lat.ToString());
+					RouteGoStations += code + " ";
+
+					BusNode bn = new BusNode(jsonObject["Code"].GetString(), null, bs, null);
+					goNode.Add(bn);
+
+
+					if (!obs.Any(a => a.Code == code))
+					{
+						bs.arrayNode.Add(bn);
+						obs.Add(bs);
+					}
+					else
+					{
+						//bn.busStop = obs.Where(x => x.Code == code).FirstOrDefault();
+
+						// 20141218
+						obs.Where(x => x.Code == code).FirstOrDefault().arrayNode.Add(bn);
+
+
+						//foreach (BusStop bb in obs)
+						//{
+						//	if (bb.Code == code && bs.Code.Contains("565"))
+						//	{
+						//		bb.arrayNode.Add(bn);
+						//	}
+						//}
+					}
+
+				}
+
+
+
+				// Get Return
+				JsonObject reObject = jsonObject["Re"].GetObject();
+				JsonArray reGeoArray = reObject["Geo"].GetArray();
+				foreach (JsonValue value in reGeoArray)
+				{
+					JsonObject reGeoObject = value.GetObject();
+
+					double lng = reGeoObject["Lng"].GetNumber();
+					double lat = reGeoObject["Lat"].GetNumber();
+					RouteReturnGeo += lng.ToString() + "," + lat.ToString() + " ";
+					//RouteReturnGeo.Add(new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
+				}
+
+				JsonArray reStationArray = reObject["Station"].GetArray();
+				foreach (JsonValue value in reStationArray)
+				{
+					JsonObject reStationObject = value.GetObject();
+
+					double lng = reStationObject["Geo"].GetObject()["Lng"].GetNumber();
+					double lat = reStationObject["Geo"].GetObject()["Lat"].GetNumber();
+
+					string code = "";
+					try
+					{
+						code = reStationObject["ObjectID"].GetNumber().ToString();
+					}
+					catch (Exception exc)
+					{
+						string errMsg = exc.Message;
+					}
+
+					BusStop bs = new BusStop(code,
+												reStationObject["Name"].GetString(),
+												reStationObject["FleetOver"].GetString(),
+												lng.ToString() + "," + lat.ToString());
+					RouteReturnStations += code + " ";
+
+					BusNode bn = new BusNode(jsonObject["Code"].GetString(), null, bs, null);
+					returnNode.Add(bn);
+
+
+					if (!obs.Any(a => a.Code == code))
+					{
+						bs.arrayNode.Add(bn);
+						obs.Add(bs);
+					}
+					else
+					{
+						//bn.busStop = obs.Where(x => x.Code == code).FirstOrDefault();
+
+
+						// 20141218
+						obs.Where(x => x.Code == code).First().arrayNode.Add(bn);
+
+
+						//foreach(BusStop bb in obs)
+						//{
+						//	if (bb.Code == code && bs.Code.Contains("565"))
+						//	{
+						//		bb.arrayNode.Add(bn);
+						//	}
+						//}
+					}
+				}
+
+				BusItem bus = new BusItem(jsonObject["FleetID"].GetNumber().ToString(),
+											jsonObject["Code"].GetString(),
+											jsonObject["Name"].GetString(),
+											jsonObject["OperationsTime"].GetString(),
+											jsonObject["Frequency"].GetString(),
+											jsonObject["Cost"].GetString(),
+											goObject["Route"].GetString(),
+											RouteGoGeo,
+											RouteGoStations,
+											reObject["Route"].GetString(),
+											RouteReturnGeo,
+											RouteReturnStations);
+				bus.goNode = goNode;
+				bus.returnNode = returnNode;
+				obi.Add(bus);
+			}
+
+			Buses = new BusGroup(Name, obi, obs);
+
+			foreach (BusItem bi in Buses.Items)
+			{
+				for (int i = 0; i < bi.goNode.Count; i++)
+				{
+					bi.goNode[i].busItem = bi;
+					if (i < bi.goNode.Count - 1)
+					{
+						bi.goNode[i].nextNode = bi.goNode[i + 1];
+					}
+
+				}
+				for (int i = 0; i < bi.returnNode.Count; i++)
+				{
+					bi.returnNode[i].busItem = bi;
+					if (i < bi.returnNode.Count - 1)
+					{
+						bi.returnNode[i].nextNode = bi.returnNode[i + 1];
+					}
+				}
+			}
+		}
+
+
+		/*
 		private async Task GetHCMDataAsync()
 		{
 			if (Buses != null)
@@ -687,6 +903,7 @@ namespace BusFinderUniversal.ViewModel
 				}
 			}
 		}
+		*/
 
 		//private async Task GetDanangDataAsync() { }
 

@@ -146,11 +146,21 @@ namespace BusFinderUniversal.View
 
 			try
 			{
-				var diemdau = item.RouteGoGeo.First().Position;
-				var diemcuoi = item.RouteGoGeo.Last().Position;
-				Geopoint myPoint = new Geopoint(new BasicGeoposition { Latitude = (diemdau.Latitude + diemcuoi.Latitude) / 2, Longitude = (diemdau.Longitude + diemcuoi.Longitude) / 2 });
-				MyMap.Center = myPoint;
-				MyMap.ZoomLevel = 13;
+				List<Geopoint> listGoGeo = MyUtil.textToGeoList(item.RouteGoGeo);
+
+				List<BasicGeoposition> basicPositions = new List<BasicGeoposition>();
+				foreach(Geopoint geo in listGoGeo)
+				{
+					basicPositions.Add(new BasicGeoposition() { Latitude = geo.Position.Latitude, Longitude = geo.Position.Longitude });
+				}
+
+				await MyMap.TrySetViewBoundsAsync(GeoboundingBox.TryCompute(basicPositions), null, MapAnimationKind.None);
+
+// 				var diemdau = listGoGeo.First().Position;
+// 				var diemcuoi = listGoGeo.Last().Position;
+// 				Geopoint myPoint = new Geopoint(new BasicGeoposition { Latitude = (diemdau.Latitude + diemcuoi.Latitude) / 2, Longitude = (diemdau.Longitude + diemcuoi.Longitude) / 2 });
+// 				MyMap.Center = myPoint;
+// 				MyMap.ZoomLevel = 13;
 			}
 			catch (Exception exc)
 			{
@@ -233,8 +243,7 @@ namespace BusFinderUniversal.View
 		{
 			MyMap.MapElements.Clear();
 			MyMap.Children.Clear();
-			List<Geopoint> line = item.RouteGoGeo;
-			List<BusStop> stations = item.RouteReturnStops;
+			List<Geopoint> line = MyUtil.textToGeoList(item.RouteGoGeo);
 			Color strokeColor = Color.FromArgb(100, 255, 0, 0);
 			//Drawing lines, notice the use of Geopath. Consists out of BasicGeopositions
 			var shape = new MapPolyline
@@ -254,7 +263,7 @@ namespace BusFinderUniversal.View
 		{
 			MyMap.MapElements.Clear();
 			MyMap.Children.Clear();
-			List<Geopoint> line = item.RouteReturnGeo;
+			List<Geopoint> line = MyUtil.textToGeoList(item.RouteReturnGeo);
 			//Color strokeColor = Colors.Blue;
 			Color strokeColor = Color.FromArgb(100,0,0,255);
 			//Drawing lines, notice the use of Geopath. Consists out of BasicGeopositions
@@ -274,7 +283,8 @@ namespace BusFinderUniversal.View
 
 		private void DrawGoStations(object sender, RoutedEventArgs e)
 		{
-			foreach (var station in item.RouteGoStops)
+			List<BusStop> routeGoStops = MyUtil.textToBusStopList(item.RouteGoStops);
+			foreach (var station in routeGoStops)
 			{
 				Image iconStart = new Image();
 				iconStart.Source = new BitmapImage(new Uri("ms-appx:///resources/icons/BusStationGo.png"));
@@ -284,13 +294,13 @@ namespace BusFinderUniversal.View
 				iconStart.Width = 28;
 				iconStart.Margin = new Thickness(28, 0, 0, 28);
 				MyMap.Children.Add(iconStart);
-				MapControl.SetLocation(iconStart, new Geopoint(station.geo.Position));
+				MapControl.SetLocation(iconStart, new Geopoint(MyUtil.textToGeoList(station.geo).First().Position));
 				MapControl.SetNormalizedAnchorPoint(iconStart, new Point(0.5, 0.5));
 
 				var shape = new MapIcon
 				{
 					Title = station.Name,
-					Location = station.geo,
+					Location = MyUtil.textToGeoList(station.geo).First(),
 					NormalizedAnchorPoint = new Point(0.5, 0.5),
 					Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///resources/icons/empty.png")),
 					ZIndex = 5
@@ -302,7 +312,8 @@ namespace BusFinderUniversal.View
 
 		private void DrawReturnStations(object sender, RoutedEventArgs e)
 		{
-			foreach (var station in item.RouteReturnStops)
+			List<BusStop> routeReStops = MyUtil.textToBusStopList(item.RouteReturnStops);
+			foreach (var station in routeReStops)
 			{
 				Image iconStart = new Image();
 				iconStart.Source = new BitmapImage(new Uri("ms-appx:///resources/icons/BusStationReturn.png"));
@@ -312,13 +323,13 @@ namespace BusFinderUniversal.View
 				iconStart.Width = 28;
 				iconStart.Margin = new Thickness(28, 0, 0, 28);
 				MyMap.Children.Add(iconStart);
-				MapControl.SetLocation(iconStart, new Geopoint(station.geo.Position));
+				MapControl.SetLocation(iconStart, new Geopoint(MyUtil.textToGeoList(station.geo).First().Position));
 				MapControl.SetNormalizedAnchorPoint(iconStart, new Point(0.5, 0.5));
 
 				var shape = new MapIcon
 				{
 					Title = station.Name,
-					Location = station.geo,
+					Location = MyUtil.textToGeoList(station.geo).First(),
 					NormalizedAnchorPoint = new Point(0.5, 0.5),
 					Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///resources/icons/empty.png")),
 					ZIndex = 5
@@ -368,11 +379,12 @@ namespace BusFinderUniversal.View
 
 		private BusStop FindBusStopByCode(string code)
 		{
-			var matches = item.RouteGoStops.Where((bus) => bus.Code.Equals(code));
-			if (matches.Count() >= 1) return matches.First();
-			matches = item.RouteReturnStops.Where((bus) => bus.Code.Equals(code));
-			if (matches.Count() >= 1) return matches.First();
-			return null;
+			return MyUtil.textToBusStopList(code).First();
+// 			var matches = item.RouteGoStops.Where((bus) => bus.Code.Equals(code));
+// 			if (matches.Count() >= 1) return matches.First();
+// 			matches = item.RouteReturnStops.Where((bus) => bus.Code.Equals(code));
+// 			if (matches.Count() >= 1) return matches.First();
+// 			return null;
 		}
 
 		private void ZoomOut(object sender, RoutedEventArgs e)

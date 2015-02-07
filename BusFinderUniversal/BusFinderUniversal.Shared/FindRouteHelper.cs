@@ -344,7 +344,7 @@ namespace BusFinderUniversal
 				else if (newTreeNode.getCurrentNode().busCode != n.getCurrentNode().busCode)
 				{
 					newTreeNode.setNumberOfChange(n.getNumberOfChange() + 1);
-					newTreeNode.setPreviousDistance(n.getPreviousDistance() + MyUtil.DistanceInKiloMetres(currentStop.geo, newStop.geo));
+					newTreeNode.setPreviousDistance(n.getPreviousDistance() + MyUtil.DistanceInKiloMetres(MyUtil.textToGeoList(currentStop.geo).First(), MyUtil.textToGeoList(newStop.geo).First()));
 					newTreeNode.setWeight(newTreeNode.getNumberOfChange() * 6.25 + newTreeNode.getPreviousDistance() + heuristicFuntion(newStop, endStop));
 					newTreeNode.setParent(n);
 					newList.Add(newTreeNode);
@@ -364,7 +364,7 @@ namespace BusFinderUniversal
 				else
 				{
 					newTreeNode.setNumberOfChange(n.getNumberOfChange());
-					newTreeNode.setPreviousDistance(n.getPreviousDistance() + MyUtil.DistanceInKiloMetres(currentStop.geo, newStop.geo));
+					newTreeNode.setPreviousDistance(n.getPreviousDistance() + MyUtil.DistanceInKiloMetres(MyUtil.textToGeoList(currentStop.geo).First(), MyUtil.textToGeoList(newStop.geo).First()));
 					newTreeNode.setWeight(newTreeNode.getNumberOfChange() * 6.25 + newTreeNode.getPreviousDistance() + heuristicFuntion(newStop, endStop));
 					newTreeNode.setParent(n);
 					newList.Add(newTreeNode);
@@ -402,8 +402,8 @@ namespace BusFinderUniversal
 
 		public double heuristicFuntion(BusStop currentStop, BusStop endStop)
 		{
-			Geopoint geo1 = currentStop.geo;
-			Geopoint geo2 = endStop.geo;
+			Geopoint geo1 = MyUtil.textToGeoList(currentStop.geo).First();
+			Geopoint geo2 = MyUtil.textToGeoList(endStop.geo).First();
 			return MyUtil.DistanceInKiloMetres(geo1, geo2);
 		}
 

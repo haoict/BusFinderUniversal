@@ -1,0 +1,18 @@
+﻿{
+    "success": true,
+    "st": true,
+    "dt": {
+        "FleetID": 1,
+        "Code": "01",
+        "Name": "Bến Thành - Bến xe Chợ Lớn",
+        "OperationsTime": "05h00 - 20h30",
+        "Frequency": "5 - 10 phút/chuyến",
+        "Cost": "7000đ/lượt",
+        "Go": {
+            "Route": "Bến công trường Mê Linh - Thi Sách - Công trường Mê Linh - Tôn Đức Thắng - Hàm Nghi - trạm Bến Thành - Trần Hưng Đạo - Nguyễn Tri Phương - Trần Phú - Trần Hưng Đạo - Châu Văn Liêm - Hải Thượng Lãn Ông - Trang Tử - Ga Chợ Lớn A."
+        },
+        "Re": {
+            "Route": "Ga Chợ Lớn A - Lê Quang Sung - Nguyễn Hữu Thận - Tháp Mười - Hải Thượng Lãn Ông - Châu Văn Liêm - Nguyễn Trãi - Nguyễn Tri Phương - Trần Phú - Trần Hưng Đạo - trạm Bến Thành - Hàm Nghi - Hồ Tùng Mậu - đường nhánh S2 - Tôn Đức Thắng  - Hai Bà Trưng - Đông Du - Thi Sách - Bến Công trường Mê Linh."
+        }
+    }
+}

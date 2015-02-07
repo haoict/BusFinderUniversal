@@ -53,7 +53,7 @@ namespace BusFinderUniversal.View
 			List<Geopoint> line = new List<Geopoint>();
 			for (int i = 0; i < answer.ResultNodes.Count - 1; i++)
 			{
-				line.Add(answer.ResultNodes[i].busStop.geo);
+				line.Add(MyUtil.textToGeoList(answer.ResultNodes[i].busStop.geo).First());
 				BusNode nxtNode = answer.ResultNodes[i].nextNode;
 				if (nxtNode == null)
 				{
@@ -66,7 +66,7 @@ namespace BusFinderUniversal.View
 				}
 				while (nxtNode.busStop.Code != answer.ResultNodes[i + 1].busStop.Code)
 				{
-					line.Add(nxtNode.busStop.geo);
+					line.Add(MyUtil.textToGeoList(nxtNode.busStop.geo).First());
 					nxtNode = nxtNode.nextNode;
 					if (nxtNode == null)
 					{
@@ -74,7 +74,7 @@ namespace BusFinderUniversal.View
 					}
 				}
 			}
-			line.Add(answer.ResultNodes.Last().busStop.geo);
+			line.Add(MyUtil.textToGeoList(answer.ResultNodes.Last().busStop.geo).First());
 
 			//List<BusStop> stations = item.RouteReturnStops;
 			Color strokeColor = Color.FromArgb(130, 0, 98, 140);
@@ -104,7 +104,7 @@ namespace BusFinderUniversal.View
 				// Draw line from to location to first bus stop
 				List<Geopoint> line1 = new List<Geopoint>();
 				line1.Add(answer.FromPoint);
-				line1.Add(answer.ResultNodes.First().busStop.geo);
+				line1.Add(MyUtil.textToGeoList(answer.ResultNodes.First().busStop.geo).First());
 				Color sC1 = Color.FromArgb(130, 130, 0, 0);
 				var shape1 = new MapPolyline
 				{
@@ -131,7 +131,7 @@ namespace BusFinderUniversal.View
 
 				// Draw line from to location to first bus stop
 				List<Geopoint> line2 = new List<Geopoint>();
-				line2.Add(answer.ResultNodes.Last().busStop.geo);
+				line2.Add(MyUtil.textToGeoList(answer.ResultNodes.Last().busStop.geo).First());
 				line2.Add(answer.ToPoint);
 				Color sC1 = Color.FromArgb(130, 130, 0, 0);
 				var shape1 = new MapPolyline
@@ -160,7 +160,7 @@ namespace BusFinderUniversal.View
 					iconStart.Height = 12;
 					iconStart.Width = 12;
 					MyMap.Children.Add(iconStart);
-					MapControl.SetLocation(iconStart, new Geopoint(bn.busStop.geo.Position));
+					MapControl.SetLocation(iconStart, new Geopoint(MyUtil.textToGeoList(bn.busStop.geo).First().Position));
 					MapControl.SetNormalizedAnchorPoint(iconStart, new Point(0.5, 0.5));
 				}
 			}
@@ -173,7 +173,7 @@ namespace BusFinderUniversal.View
 			i1.Width = 96;
 			i1.Margin = new Thickness(20, -46, 0, 0);
 			MyMap.Children.Add(i1);
-			MapControl.SetLocation(i1, new Geopoint(answer.ResultNodes.First().busStop.geo.Position));
+			MapControl.SetLocation(i1, new Geopoint(MyUtil.textToGeoList(answer.ResultNodes.First().busStop.geo).First().Position));
 			MapControl.SetNormalizedAnchorPoint(i1, new Point(0.5, 0.5));
 			
 			// Draw stop location label
@@ -184,7 +184,7 @@ namespace BusFinderUniversal.View
 			iconStartLast.Width = 96;
 			iconStartLast.Margin = new Thickness(20, -46, 0, 0);
 			MyMap.Children.Add(iconStartLast);
-			MapControl.SetLocation(iconStartLast, new Geopoint(answer.ResultNodes.Last().busStop.geo.Position));
+			MapControl.SetLocation(iconStartLast, new Geopoint(MyUtil.textToGeoList(answer.ResultNodes.Last().busStop.geo).First().Position));
 			MapControl.SetNormalizedAnchorPoint(iconStartLast, new Point(0.5, 0.5));
 
 			// Draw stop location point
@@ -195,7 +195,7 @@ namespace BusFinderUniversal.View
 			ic2.Width = 12;
 			ic2.Margin = new Thickness(0, 0, 0, 0);
 			MyMap.Children.Add(ic2);
-			MapControl.SetLocation(ic2, new Geopoint(answer.ResultNodes.Last().busStop.geo.Position));
+			MapControl.SetLocation(ic2, new Geopoint(MyUtil.textToGeoList(answer.ResultNodes.Last().busStop.geo).First().Position));
 			MapControl.SetNormalizedAnchorPoint(ic2, new Point(0.5, 0.5));
 
 			MessageDialogHelper.Show(answer.Detail);

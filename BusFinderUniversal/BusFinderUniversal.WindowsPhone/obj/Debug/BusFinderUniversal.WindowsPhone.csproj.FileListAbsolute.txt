@@ -115,3 +115,11 @@ D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\
 D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\GalaSoft.MvvmLight.Platform.pri.xml
 D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\ProjectArchitectures.txt
 D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\BusFinderUniversal.WindowsPhone.csprojResolveAssemblyReference.cache
+D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\Microsoft.Practices.ServiceLocation\layout.resfiles
+D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\Microsoft.Practices.ServiceLocation\layout.resfiles.intermediate
+D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\Microsoft.Practices.ServiceLocation\Resources.resfiles
+D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\Microsoft.Practices.ServiceLocation\Resources.resfiles.intermediate
+D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\Microsoft.Practices.ServiceLocation\pri.resfiles
+D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\Microsoft.Practices.ServiceLocation\pri.resfiles.intermediate
+D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\Microsoft.Practices.ServiceLocation\priconfig.xml
+D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\Debug\Microsoft.Practices.ServiceLocation\priconfig.xml.intermediate

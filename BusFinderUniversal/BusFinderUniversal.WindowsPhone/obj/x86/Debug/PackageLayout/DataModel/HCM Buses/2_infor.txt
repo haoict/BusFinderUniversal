@@ -1,0 +1,18 @@
+﻿{
+    "success": true,
+    "st": true,
+    "dt": {
+        "FleetID": 2,
+        "Code": "02",
+        "Name": "Bến Thành - Bến xe Miền Tây",
+        "OperationsTime": "04h45 - 18h30",
+        "Frequency": "7 - 10 phút/chuyến",
+        "Cost": "7000đ/lượt",
+        "Go": {
+            "Route": "Chỗ đậu xe buýt trên đường Thi Sách - Thi Sách - Công trường Mê Linh - Tôn Đức Thắng – Hàm Nghi - trạm Bến Thành - Trần Hưng Đạo - Phạm Ngũ Lão - Nguyễn Thị Nghĩa - Nguyễn Trãi - Cống Quỳnh - Nguyễn Thị Minh Khai-Nguyễn Thiện Thuật – Điện Biên Phủ - Cao Thắng - 3/2 - Minh Phụng - Bình Tiên - Phạm Văn Chí - Nguyễn Văn Luông - Hậu Giang - Kinh Dương Vương - Bến xe Miền Tây (trả khách) - Kinh Dương Vương - bãi đỗ xe buýt tại Bến xe Miền Tây"
+        },
+        "Re": {
+            "Route": "Bãi đỗ xe buýt tại Bến xe Miền Tây - Kinh Dương Vương - Hậu Giang - Minh Phụng - 3/2 - Cao Thắng - Cống Quỳnh - Nguyễn Trãi - Lê Lai (vòng xoay) - Trần Hưng Đạo - Phạm Ngũ Lão - Yersin - Trần Hưng Đạo - Trạm Bến Thành - Hàm Nghi - Hồ Tùng Mậu - đường nhánh S2 - Tôn Đức Thắng - Hai Bà Trưng - Đông Du - Thi Sách - Chỗ đậu xe buýt trên đường Thi Sách."
+        }
+    }
+}

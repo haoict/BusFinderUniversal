@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,6 +7,7 @@ using Windows.Devices.Geolocation;
 
 namespace BusFinderUniversal.Model
 {
+	[Table("BusItem")]
 	public class BusItem : ObservableObject
 	{
 		public BusItem(string FleetID,
@@ -15,11 +17,11 @@ namespace BusFinderUniversal.Model
 			string Frequency,
 			string Cost,
 			string RouteGo,
-			List<Geopoint> RouteGoGeo,
-			List<BusStop> RouteGoStops,
+			string RouteGoGeo,
+			string RouteGoStops,
 			string RouteReturn,
-			List<Geopoint> RouteReturnGeo,
-			List<BusStop> RouteReturnStops)
+			string RouteReturnGeo,
+			string RouteReturnStops)
 		{
 			this.FleetID = FleetID;
 			this.Code = Code;
@@ -51,20 +53,20 @@ namespace BusFinderUniversal.Model
 			this.RouteReturnStops = null;
 		}
 
-		public string _fleetID;
-		public string _code;
-		public string _name;
-		public string _operationsTime;
-		public string _frequency;
-		public string _cost;
-		public string _routeGo;
-		public List<Geopoint> _routeGoGeo;
-		public List<BusStop> _routeGoStops;
-		public string _routeReturn;
-		public List<Geopoint> _routeReturnGeo;
-		public List<BusStop> _routeReturnStops;
-		public List<BusNode> _goNode;
-		public List<BusNode> _returnNode;
+		private string _fleetID;
+		private string _code;
+		private string _name;
+		private string _operationsTime;
+		private string _frequency;
+		private string _cost;
+		private string _routeGo;
+		private string _routeGoGeo;
+		private string _routeGoStops;
+		private string _routeReturn;
+		private string _routeReturnGeo;
+		private string _routeReturnStops;
+		private List<BusNode> _goNode;
+		private List<BusNode> _returnNode;
 
 		public string FleetID
 		{
@@ -77,6 +79,7 @@ namespace BusFinderUniversal.Model
 				Set("FleetID", ref _fleetID, value);
 			}
 		}
+		[PrimaryKey]
 		public string Code
 		{
 			get
@@ -143,7 +146,7 @@ namespace BusFinderUniversal.Model
 				Set("RouteGo", ref _routeGo, value);
 			}
 		}
-		public List<Geopoint> RouteGoGeo
+		public string RouteGoGeo
 		{
 			get
 			{
@@ -154,7 +157,7 @@ namespace BusFinderUniversal.Model
 				Set("RouteGoGeo", ref _routeGoGeo, value);
 			}
 		}
-		public List<BusStop> RouteGoStops
+		public string RouteGoStops
 		{
 			get
 			{
@@ -176,7 +179,7 @@ namespace BusFinderUniversal.Model
 				Set("RouteReturn", ref _routeReturn, value);
 			}
 		}
-		public List<Geopoint> RouteReturnGeo
+		public string RouteReturnGeo
 		{
 			get
 			{
@@ -187,7 +190,7 @@ namespace BusFinderUniversal.Model
 				Set("RouteReturnGeo", ref _routeReturnGeo, value);
 			}
 		}
-		public List<BusStop> RouteReturnStops
+		public string RouteReturnStops
 		{
 			get
 			{

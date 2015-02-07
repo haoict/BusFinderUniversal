@@ -1,0 +1,7 @@
+﻿[ResourceMetadata]
+"ResourceId"			"split.scale-100"
+"ResourceDimensions"		"scale-100"
+
+[Files]
+"D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\x86\Debug\split.scale-100.pri"			"resources.pri"
+"D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\x86\Debug\PackageLayout\Assets\SplashScreen.scale-100.png"			"Assets\SplashScreen.scale-100.png"

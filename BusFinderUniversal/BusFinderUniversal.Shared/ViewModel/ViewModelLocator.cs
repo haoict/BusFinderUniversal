@@ -15,7 +15,6 @@ namespace BusFinderUniversal.ViewModel
 		static ViewModelLocator()
 		{
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-			SimpleIoc.Default.Register<MainViewModel>();
 			SimpleIoc.Default.Register<HomeViewModel>();
 			SimpleIoc.Default.Register<ListBusViewModel>();
 			SimpleIoc.Default.Register<BusItemViewModel>();
@@ -26,16 +25,12 @@ namespace BusFinderUniversal.ViewModel
 		public static void Cleanup()
 		{
 			var viewModelLocator = (ViewModelLocator)Application.Current.Resources["Locator"];
-			viewModelLocator.Main.Cleanup();
+			viewModelLocator.HomeViewModel.Cleanup();
+			viewModelLocator.ListBusViewModel.Cleanup();
+			viewModelLocator.BusItemViewModel.Cleanup();
+			viewModelLocator.FindRouteResultViewModel.Cleanup();
+			viewModelLocator.AboutViewModel.Cleanup();
 			Messenger.Reset();
-		}
-
-		public MainViewModel Main
-		{
-			get
-			{
-				return ServiceLocator.Current.GetInstance<MainViewModel>();
-			}
 		}
 
 		public HomeViewModel HomeViewModel

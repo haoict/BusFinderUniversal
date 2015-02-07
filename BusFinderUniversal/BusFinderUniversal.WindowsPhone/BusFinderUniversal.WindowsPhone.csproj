@@ -16,6 +16,8 @@
     <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SynthesizeLinkMetadata>true</SynthesizeLinkMetadata>
     <ExpressionBlendVersion>12.0.50716.0</ExpressionBlendVersion>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>x86</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,6 +83,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="SQLite.cs" />
+    <Compile Include="SQLiteAsync.cs" />
     <Compile Include="UserControls\BusStopView.xaml.cs">
       <DependentUpon>BusStopView.xaml</DependentUpon>
     </Compile>
@@ -207,6 +211,12 @@
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0" />
+    <SDKReference Include="Microsoft.VCLibs, version=12.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Phone</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.WP81, Version=3.8.8.1">
+      <Name>SQLite for Windows Phone 8.1</Name>
+    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-240.png" />

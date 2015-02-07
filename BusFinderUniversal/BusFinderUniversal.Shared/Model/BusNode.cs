@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;

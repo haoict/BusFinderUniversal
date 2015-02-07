@@ -158,15 +158,6 @@ namespace BusFinderUniversal.ViewModel
 			}
 			Messenger.Default.Send(Buses);
 		}
-
-		private async Task DataInitializeAsync()
-		{
-			if (Name == "Hà Nội")
-				await GetHanoiDataAsync();
-
-			SearchBusResult = new ObservableCollection<BusItem>(Buses.Items);
-			ProgressBarOpacity = 0;
-		}
 		
 		private void ListBusViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
@@ -205,6 +196,7 @@ namespace BusFinderUniversal.ViewModel
 			}
 		}
 
+		/*
 		private async Task GetHanoiDataAsync()
 		{
 			if (Buses != null)
@@ -218,9 +210,9 @@ namespace BusFinderUniversal.ViewModel
 			for (int i = 1; i <= MyConstants.NUMBER_OF_BUS; i++)
 			{
 				ProgressBarValue += (double)100/MyConstants.NUMBER_OF_BUS;
-				List<Geopoint> RouteGoGeo = new List<Geopoint>();
-				List<BusStop> RouteGoStations = new List<BusStop>();
-				List<Geopoint> RouteReturnGeo = new List<Geopoint>();
+				string RouteGoGeo = "";
+				string RouteGoStations = "";
+				string RouteReturnGeo = "";
 				List<BusStop> RouteReturnStations = new List<BusStop>();
 				List<BusNode> goNode = new List<BusNode>();
 				List<BusNode> returnNode = new List<BusNode>();
@@ -239,7 +231,7 @@ namespace BusFinderUniversal.ViewModel
 
 					double lng = goGeoObject["Lng"].GetNumber();
 					double lat = goGeoObject["Lat"].GetNumber();
-					RouteGoGeo.Add(new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
+					RouteGoGeo += lng.ToString() + "," + lat.ToString() + " ";
 				}
 
 				JsonArray goStationArray = goObject["Station"].GetArray();
@@ -265,7 +257,7 @@ namespace BusFinderUniversal.ViewModel
 												goStationObject["Name"].GetString(),
 												goStationObject["FleetOver"].GetString(),
 												new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
-					RouteGoStations.Add(bs);
+					RouteGoStations += code + " ";
 
 					BusNode bn = new BusNode(jsonObject["Code"].GetString(), null, bs, null);
 					goNode.Add(bn);
@@ -293,7 +285,8 @@ namespace BusFinderUniversal.ViewModel
 
 					double lng = reGeoObject["Lng"].GetNumber();
 					double lat = reGeoObject["Lat"].GetNumber();
-					RouteReturnGeo.Add(new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
+					RouteReturnGeo += lng.ToString() + "," + lat.ToString() + " ";
+					//RouteReturnGeo.Add(new Geopoint(new BasicGeoposition { Latitude = lat, Longitude = lng }));
 				}
 
 				JsonArray reStationArray = reObject["Station"].GetArray();
@@ -375,6 +368,7 @@ namespace BusFinderUniversal.ViewModel
 			}
 
 		}
+		*/
 
 		public BusItem FindBusItemByCode(string busCode)
 		{
@@ -390,7 +384,7 @@ namespace BusFinderUniversal.ViewModel
 			List<BusStop> listBusNearby = new List<BusStop>();
 			foreach (BusStop bs in this.Buses.Stops)
 			{
-				if (MyUtil.DistanceInKiloMetres(bs.geo, busGeoPoint) < radius)
+				if (MyUtil.DistanceInKiloMetres(MyUtil.textToGeoList(bs.geo).First(), busGeoPoint) < radius)
 				{
 					listBusNearby.Add(bs);
 				}

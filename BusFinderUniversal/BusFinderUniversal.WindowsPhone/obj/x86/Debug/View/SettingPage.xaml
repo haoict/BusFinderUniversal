@@ -1,0 +1,52 @@
+﻿<Page
+	x:Class="BusFinderUniversal.View.SettingPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:BusFinderUniversal.View"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="48"/>
+			<RowDefinition Height="85"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+		<StackPanel Name="AppTitleHeader" Grid.Row="0" Orientation="Horizontal" >
+			<Canvas Width="30" Height="30"  VerticalAlignment="Top" Margin="24,10,0,0" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="Document">
+				<Canvas x:Name="busicon" Width="30" Height="30" Canvas.Left="0" Canvas.Top="0">
+					<Path x:Name="Path" Width="30" Height="30" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" Fill="{StaticResource PhoneAccentBrush}" Data="M 4.74667,12.6266C 11.1733,3.81332 22.5467,1.47998 32.68,0C 46.2,0 59.7067,0 73.2267,0C 83.3467,1.47998 94.72,3.81332 101.147,12.6266C 104.067,15.8933 104.013,20.4267 105.533,24.32C 106.147,45.5733 105.44,66.8667 105.893,88.1333C 70.6,88.2666 35.2933,88.2666 0,88.1333C 0.453333,66.8667 -0.24,45.5733 0.36,24.32C 1.88,20.4267 1.82667,15.8933 4.74667,12.6266 Z M 31.6667,12.68C 32.7867,11.24 33.3333,8.40002 35.64,8.56C 46.7867,8.34668 57.9467,8.50665 69.0933,8.48001C 71.64,8.01334 73.68,10.32 73.84,12.72C 73.1067,14.8134 71.1467,16.3867 68.8667,16.2C 58.24,16.2267 47.6133,16.2267 37,16.1867C 34.5067,16.52 33.0667,14.32 31.6667,12.68 Z M 12.1333,30.6667C 13.96,26.1467 19.16,24.5733 23.6133,24.36C 31.64,24.1467 39.6667,24.3467 47.7067,24.2933C 47.6933,32.84 47.6933,41.3733 47.7067,49.92C 35.3867,49.9734 23.08,49.9333 10.7733,49.9333C 11.1733,43.52 9.82667,36.8267 12.1333,30.6667 Z M 58.1867,24.2933C 65.84,24.32 73.4933,24.2133 81.1333,24.3067C 85.6533,24.4267 90.96,25.4933 93.36,29.8C 96.2666,36.1067 94.6667,43.24 95.12,49.9333C 82.8133,49.9333 70.5067,49.9734 58.1867,49.92C 58.2,41.3733 58.2,32.84 58.1867,24.2933 Z M 13.8133,62.8933C 18.7733,61.04 24.4533,66.28 22.7333,71.3867C 21.5733,76.7333 13.7867,78.4666 10.56,74.0133C 7.09333,70.48 9.25333,64.2133 13.8133,62.8933 Z M 88.12,62.7733C 93.44,61.1333 99.16,67.36 96.3733,72.4267C 94.5333,76.9066 87.8933,78.08 84.7867,74.2933C 81.08,70.72 83.2133,63.92 88.12,62.7733 Z M 7.97333,92.1733C 13.2667,92.04 18.5733,92.1067 23.8667,92.0934C 23.4933,96.3867 25.4267,102.213 21.0133,104.987C 17.0933,106.76 10.88,106.773 8.58667,102.48C 7.68,99.1333 8.17333,95.6 7.97333,92.1733 Z M 82.0267,92.0934C 87.32,92.1067 92.6267,92.04 97.92,92.1733C 97.72,95.6 98.2133,99.1466 97.3067,102.493C 95.0133,106.773 88.8533,106.747 84.9333,105.027C 80.4533,102.267 82.4,96.4 82.0267,92.0934 Z "/>
+				</Canvas>
+			</Canvas>
+			
+			<TextBlock Text="Bus Finder" FontSize="25" FontWeight="SemiBold" Foreground="Gray" Margin="10,10,0,0">
+			</TextBlock>
+		</StackPanel>
+		
+		<TextBlock Text="cài đặt" Grid.Row="1" Margin="24,-20,24,0" FontSize="66.667" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="Segoe WP SemiLight" VerticalAlignment="Top">
+		</TextBlock>
+
+		<Grid x:Name="ContentPanel" Grid.Row="2" Margin="24,0" >
+			<StackPanel Orientation="Vertical">
+					<!--<TextBlock Text="Dịch vụ vị trí" Style="{StaticResource SubheaderTextBlockStyle}"/>-->
+				<ToggleSwitch x:ConnectionId='1' x:Name="toggleSwitchLocation" 
+								Header="Dịch vụ vị trí" 
+								IsEnabled="True"
+								IsOn="True"
+								OnContent="Bật" OffContent="Tắt" 
+								                           />
+				<!--<StackPanel Orientation="Horizontal">-->
+				<TextBlock Text="Bán kính tối đa" Style="{StaticResource ListViewItemSubheaderTextBlockStyle}"/>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+					<Button x:ConnectionId='2' x:Name="r_minus" Content="-" HorizontalAlignment="Right" VerticalAlignment="Top"                      Width="40" MinWidth="40" />
+					<TextBox x:ConnectionId='3' x:Name="radius_number_text" HorizontalAlignment="Right" Margin="10,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="70" InputScope="Number"                                 />
+					<Button x:ConnectionId='4' x:Name="r_plus" Content="+" HorizontalAlignment="Right" VerticalAlignment="Top"                     Width="40" MinWidth="40" />
+				</StackPanel>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</Page>
+

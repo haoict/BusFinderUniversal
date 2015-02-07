@@ -1,0 +1,14 @@
+﻿Mã số tuyến : 03
+Tên tuyến : Bến Thành – Thạnh Lộc
+Lượt đi : Công viên 23/9 - Lê Lai - vòng xoay công trường Quách Thị Trang - Phó Đức Chính - Lê Thị Hồng Gấm - Calmette - trạm Bến Thành - Hàm Nghi - Hồ Tùng Mậu - đường nhánh S2 - Tôn Đức Thắng - Hai Bà Trưng - Võ Thị Sáu - Nam Kỳ Khởi Nghĩa - cầu Công Lý - Nguyễn Văn Trỗi - Huỳnh Văn Bánh - Phan Đình Phùng - Nguyễn Kiệm - Nguyễn Thái Sơn - Phạm Ngũ Lão - Nguyễn Oanh - Hà Huy Giáp - Thạnh Lộc 30 - Bến Thạnh Lộc 29.
+Lượt về : Bến Thạnh Lộc 29 - Thạnh Lộc 30 - Hà Huy Giáp - Nguyễn Oanh - Nguyễn Kiệm - Hoàng Minh Giám - Đào Duy Anh - Hồ Văn Huê - Hoàng Văn Thụ - Trần Huy Liệu - Nguyễn Văn Trỗi - Nam Kỳ Khởi Nghĩa - Lý Chính Thắng - Hai Bà Trưng - Tôn Đức Thắng - Hàm Nghi  - trạm Bến Thành - Trần Hưng Đạo - Phạm Ngũ Lão - Công viên 23/9.
+Loại hình hoạt động: Buýt có trợ giá
+Cự ly: 18,8 km
+Số chuyến: 312 chuyến/ngày
+Thời gian chuyến: 55-65 phút
+Giãn cách: 5 - 12 phút/chuyến
+Thời gian hoạt động: Sài Gòn: 04h55 - 20h30, Thạnh Lộc: 04h15 - 20h15
+Loại xe: 55 chỗ
+Đơn vị đảm nhận:
+ -Công ty TNHH Vận tải Ngôi Sao Sài Gòn, ĐT: 38.642.764
+ -HTX Vận tải 19/5, ĐT: 37.130.711

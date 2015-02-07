@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,9 +7,10 @@ using Windows.Devices.Geolocation;
 
 namespace BusFinderUniversal.Model
 {
+	[Table("BusStop")]
 	public class BusStop : ObservableObject
 	{
-		public BusStop(string Code, string Name, string FleetOver, Geopoint geo)
+		public BusStop(string Code, string Name, string FleetOver, string geo)
 		{
 			this.Code = Code;
 			this.Name = Name;
@@ -26,12 +28,13 @@ namespace BusFinderUniversal.Model
 			arrayNode = new List<BusNode>();
 		}
 
-		public string _code;
-		public string _name;
-		public string _fleetOver;
-		public Geopoint _geo;
-		public List<BusNode> _arrayNode;
+		private string _code;
+		private string _name;
+		private string _fleetOver;
+		private string _geo;
+		private List<BusNode> _arrayNode;
 
+		[PrimaryKey]
 		public string Code
 		{
 			get
@@ -65,7 +68,7 @@ namespace BusFinderUniversal.Model
 				Set("FleetOver", ref _fleetOver, value);
 			}
 		}
-		public Geopoint geo
+		public string geo
 		{
 			get
 			{

@@ -1,0 +1,7 @@
+﻿[ResourceMetadata]
+"ResourceId"			"filemap.scale-140"
+"ResourceDimensions"		"scale-140"
+
+[Files]
+"D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\x86\Debug\filemap.scale-140.pri"			"resources.pri"
+"D:\GitHub\BusFinderUniversal\BusFinderUniversal\BusFinderUniversal.WindowsPhone\obj\x86\Debug\PackageLayout\Assets\SplashScreen.scale-140.png"			"Assets\SplashScreen.scale-140.png"

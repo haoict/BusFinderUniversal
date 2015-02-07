@@ -111,41 +111,41 @@ namespace BusFinderUniversal.View
 				await CurrentLocationInitializationAsync();
 
 
-			List<List<BusNode>> foundAnswerList = new List<List<BusNode>>();
-			BusStop f = currentListInstance.FindBusStopByCode("9067");
-			BusStop t = currentListInstance.FindBusStopByCode("9035");
-			AStarAlgo AS1 = new AStarAlgo(t, f);
-			AS1.algorithm();
-			if (AS1.answer.Count() != 0)
-			{
-				// We found an answer
-				foundAnswerList.Add(AS1.answer);
-			}
-			if (foundAnswerList.Count == 0)
-			{
-				MessageDialogHelper.Show("Không tìm thấy kết quả nào");
-				isProcessing = false;
-				fromPoint = null;
-				toPoint = null;
-				return;
-			}
-
-
-			FindRouteResultModel result = new FindRouteResultModel();
-			result.From = inputFROM.Text;
-			result.To = inputTO.Text;
-			result.FromPoint = fromPoint;
-			result.ToPoint = toPoint;
-			result.foundAnswerList = foundAnswerList;
-			if (!((Frame)Window.Current.Content).Navigate(typeof(FindRouteResultView)))
-			{
-				throw new Exception("NavigationFailedExceptionMessage");
-			}
-			Messenger.Default.Send(result);
-
-			fromPoint = null;
-			toPoint = null;
-			isProcessing = false;
+// 			List<List<BusNode>> foundAnswerList = new List<List<BusNode>>();
+// 			BusStop f = currentListInstance.FindBusStopByCode("9067");
+// 			BusStop t = currentListInstance.FindBusStopByCode("9035");
+// 			AStarAlgo AS1 = new AStarAlgo(t, f);
+// 			AS1.algorithm();
+// 			if (AS1.answer.Count() != 0)
+// 			{
+// 				// We found an answer
+// 				foundAnswerList.Add(AS1.answer);
+// 			}
+// 			if (foundAnswerList.Count == 0)
+// 			{
+// 				MessageDialogHelper.Show("Không tìm thấy kết quả nào");
+// 				isProcessing = false;
+// 				fromPoint = null;
+// 				toPoint = null;
+// 				return;
+// 			}
+// 
+// 
+// 			FindRouteResultModel result = new FindRouteResultModel();
+// 			result.From = inputFROM.Text;
+// 			result.To = inputTO.Text;
+// 			result.FromPoint = fromPoint;
+// 			result.ToPoint = toPoint;
+// 			result.foundAnswerList = foundAnswerList;
+// 			if (!((Frame)Window.Current.Content).Navigate(typeof(FindRouteResultView)))
+// 			{
+// 				throw new Exception("NavigationFailedExceptionMessage");
+// 			}
+// 			Messenger.Default.Send(result);
+// 
+// 			fromPoint = null;
+// 			toPoint = null;
+// 			isProcessing = false;
 		}
 
 		protected async override void OnNavigatedFrom(NavigationEventArgs e)
@@ -471,6 +471,8 @@ namespace BusFinderUniversal.View
 
 			fromPoint = null;
 			toPoint = null;
+			inputFROM.Text = "";
+			inputTO.Text = "";
 			isProcessing = false;
 			//string detail = "";
 			//foreach (List<BusNode> ans in foundAnswerList)
